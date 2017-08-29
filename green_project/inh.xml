@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--inherits fields to project form-->
+        <record id="inherited_form" model="ir.ui.view">
+                <field name="model">project.project</field>
+                <field name="inherit_id" ref="project.edit_project"/>
+
+
+                    <field name="arch" type="xml">
+
+                    <xpath expr="//div[@name='options_active']" position="after">
+                        <group>
+
+                            <field name="sdate"/>
+                            <field name="edate"/>
+                            <field name="rd" type="checkbox"/>
+                            <field name="cr"/>
+                         </group>
+
+                    </xpath>
+
+                    </field>
+        </record>
+<record id="group_hide_menus" model="res.groups">
+
+            <field name="name">Restricted Menus Group</field>
+
+            <field name="comment">Restricted Menus Group</field>
+
+         </record>
+
+
+
+
+
+        <record model="ir.ui.menu" id="project.menu_project_config_project">
+
+          <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')])]"/>
+
+        </record>
+
+
+        <record model="ir.ui.menu" id="project.menu_tasks_config">
+
+          <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')])]"/>
+
+        </record>
+
+        <record model="ir.ui.menu" id="project.menu_projects">
+
+          <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')])]"/>
+
+        </record>
+
+        <record model="ir.ui.menu" id="project.menu_project_tags_act">
+
+          <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')])]"/>
+
+        </record>
+
+        <record model="ir.ui.menu" id="project.menu_project_report">
+
+          <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')])]"/>
+
+        </record>
+
+
+        <record model="ir.ui.menu" id="project.menu_project_report_task_analysis">
+
+          <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')])]"/>
+
+        </record>
+      
+          <record model="ir.ui.menu" id="sales_team.menu_base_partner">
+
+          <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="website.menu_website_configuration">
+
+          <field name="groups_id" eval="[(6, 0, [ref('group_hide_menus')])]"/>
+        </record>
+
+        
+
+       
+
+
+    </data>
+</odoo>
