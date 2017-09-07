@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<data>
+        <!--&lt;!&ndash;Form view&ndash;&gt;-->
+        <!--<record id="techincal advance1" model="ir.ui.view">-->
+            <!--<field name="name">project advancement1</field>-->
+            <!--<field name="model">project.ad</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Details" >-->
+                    <!--<sheet>-->
+                         <!--<field name="name"/>-->
+                                      <!--<field name="desc2"></field>-->
+                                      <!--<field name="risk"></field>-->
+                                      <!--<field name="sr"></field>-->
+                                      <!--<field name="ch" type="checkbox" ></field>-->
+
+
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!-- Tree view-->
+        <record id="technical_advance_tree1" model="ir.ui.view">
+            <field name="name">project advance tree</field>
+            <field name="model">project.ad</field>
+            <field name="arch" type="xml">
+                <tree string="technical List" create="true" edit="false">
+                    <!--<field name="sname"/>-->
+                                      <field name="name"/>
+                                      <field name="desc2"></field>
+                                      <field name="risk"></field>
+                                      <field name="sr"></field>
+                                      <field name="ch" type="checkbox" ></field>
+
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="project_advancement_form6" model="ir.actions.act_window">
+            <field name="name">project advancement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.ad</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
