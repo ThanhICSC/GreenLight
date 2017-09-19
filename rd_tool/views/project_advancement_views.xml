@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="project_advancement_tree" model="ir.ui.view">
+            <field name="name">Project Advancement Tree</field>
+            <field name="model">project.technical.advancement</field>
+            <field name="arch" type="xml">
+                <tree string="Project Advancement Tree" create="true" edit="false">
+                    <field name="name"/>
+                    <field name="status"/>
+                    <field name="risk"/>
+                    <field name="sr"/>
+                    <field name="ch" type="checkbox"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_project_advancement" model="ir.actions.act_window">
+            <field name="name">Project Advancement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.technical.advancement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

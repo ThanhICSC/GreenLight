@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="project_experiment_search" model="ir.ui.view">
+            <field name="name">Project Experiment</field>
+            <field name="model">project.experiment</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Project Experiment Search">
+                    <field name="project_id"/>
+                </search>
+            </field>
+        </record>
+        <record id="project_experiment_tree" model="ir.ui.view">
+            <field name="name">Project Experiment</field>
+            <field name="model">project.experiment</field>
+            <field name="arch" type="xml">
+                <tree string="Project Experiment" create="true" edit="true">
+                    <field name="project_id"/>
+                    <field name="name"/>
+                    <field name="current_risk"/>
+                </tree>
+            </field>
+        </record>
+        <record id='project_experiment_form' model="ir.ui.view">
+            <field name="name">Project Experiment</field>
+            <field name="model">project.experiment</field>
+            <field name="arch" type="xml">
+                <form string="Project Experiment">
+                    <header>
+                        <field name="stopped" invisible="1" />
+                        <button name="start" string="Start running" type="object" class="oe_highlight" attrs="{'invisible':['|',('state','=','close'),('stopped','=',True)]}"/>
+                        <button name="stop" string="Stop" type="object" class="oe_highlight" states="open"/>
+                        <button name="close" string="Close" type="object" class="oe_highlight" states="open"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,open,close" class="oe_right"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_right">
+                            <div class="oe_button_box" name="button_box">
+                                <button name="view_project_uncertainities" type="object" class="oe_stat_button" icon="fa-archive">
+                                    <field string="UNCERTAINITIES" name="uncertainities_count" widget="statinfo"/>
+                                </button>
+                                <button name="%(experiment_result_form)d" type="action" class="oe_stat_button" icon="fa-archive">
+                                    <field string="ACTIVITIES/RESULTS" name="results_count" widget="statinfo"/>
+                                </button>
+                                <button name="" type="action" class="oe_stat_button" icon="fa-archive">
+                                    <field string="EVIDENCES" name="evd" widget="statinfo"/>
+                                </button>
+                                <button name="" type="action" class="oe_stat_button" icon="fa-archive">
+                                    <field string="EXPENSES" name="expz" widget="statinfo"/>
+                                </button>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state','!=','new')]}"/>
+                                <field name="project_advancement_ids" widget="many2many_tags"/>
+                                <field name="current_risk"/>
+                                <field name="project_id" string="Project" attrs="{'readonly':[('state','!=','new')]}"/>
+                            </group>
+                            <group>
+                                <field name="scheduled_start" attrs="{'readonly':[('state','!=','new')]}"/>
+                                <field name="investigation_interval"/>
+                                <field name="from_date" readonly="1"/>
+                                <field name="to_date" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="systematic investigations">
+                                <field name="experiment_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="eligible"/>
+                                        <field name="recorded_date"/>
+                                        <field name="interval"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="CR"/>
+                                        <field name="resolved"/>
+                                        <field name="expanded"/>
+                                        <field name="remaining"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_project_experiment" model="ir.actions.act_window">
+            <field name="name">Project Experiments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.experiment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_project_id':active_id,'search_default_project_id':active_id}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create"> Create an Experiment</p>
+            </field>
+        </record>
+    </data>
+</odoo>

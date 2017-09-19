@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="project_project_inherit_form" model="ir.ui.view">
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[1]" position="before">
+                    <page string="Hypothesis" attrs="{'invisible':[('is_rd','=', False)]}">
+                        <field name="hypothesis"/>
+                    </page>
+                    <page string="Technical Uncertainities" attrs="{'invisible':[('is_rd','=', False)]}">
+                        <field name="project_uncertainity_ids">
+                            <tree string="TU" editable="bottom">
+                                <field name="name"/>
+                                <field name="status"/>
+                                <field name="remark"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Technical Advancements" attrs="{'invisible':[('is_rd','=', False)]}">
+                        <field name="project_advancement_ids">
+                            <tree string="Ta" editable="bottom">
+                                <field name="name"/>
+                                <field name="status"/>
+                                <field name="risk"/>
+                                <field name="sr"/>
+                                <field name="ch" type="checkbox"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Experiments" attrs="{'invisible':[('is_rd','=', False)]}">
+                        <field name="project_experiment_ids">
+                            <tree string="TU" editable="bottom">
+                                <field name="name"/>
+                                <field name="status"/>
+                                <field name="remark"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//div[@name='options_active']" position="after">
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="is_rd" type="checkbox"/>
+                        <field name="calculated_risk"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='active']" position="after">
+                    <group class="oe_right">
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(action_project_experiment)d" type="action" class="oe_stat_button" icon="fa-pencil-square-o">
+                                <field name="exp_count" widget="statinfo" string="Experiment"/>
+                            </button>
+                            <button name="view_experiments" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                                <field name="activity_count" widget="statinfo" string="Activity/Results"/>
+                            </button>
+                            <button name="%(action_project_uncertainity)d" type="action" class="oe_stat_button" icon="fa-pencil-square-o">
+                                <field name="uncertainities_count" widget="statinfo" string="uncertainities"/>
+                            </button>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="project_inherit_kanban" model="ir.ui.view">
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban[@class='oe_background_grey o_kanban_dashboard o_project_kanban']" position="replace">
+                    <kanban class="oe_background_grey o_kanban_dashboard o_project_kanban">
+                        <field name="name"/>
+                        <field name="use_tasks"/>
+                        <field name="color"/>
+                        <field name="task_count"/>
+                        <field name="task_needaction_count"/>
+                        <field name="label_tasks"/>
+                        <field name="alias_id"/>
+                        <field name="alias_name"/>
+                        <field name="alias_domain"/>
+                        <field name="doc_count"/>
+                        <field name="is_favorite"/>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                                    <div class="o_project_kanban_main">
+                                        <a type="edit">
+                                            <div class="o_kanban_card_content o_visible">
+                                                <div class="o_kanban_primary_left">
+                                                    <div class="o_primary">
+                                                        <span>Project name :                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                            <t t-esc="record.name.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div t-if="record.alias_name.value and record.alias_domain.value">
+                                                    <span>
+                                                        <i class="fa fa-envelope"></i>
+                                                        <t t-esc="record.alias_id.value"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a type="edit">
+                                            <div class="o_kanban_card_manage_pane o_invisible">
+                                                <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+                                                    <div groups="project.group_project_manager">
+                                                        <a type="edit">Settings</a>
+                                                    </div>
+                                                    <div >
+                                                        <a name="%(action_project_experiment)d" type="action">experiment</a>
+                                                    </div>
+                                                    <div >
+                                                        <a name="%(action_project_uncertainity)d" type="action">Uncertinites</a>
+                                                    </div>
+                                                </div>
+                                                <div t-if="widget.editable" class="o_project_kanban_colorpicker">
+                                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                                </div>
+                                            </div>
+                                            <div class="o_project_kanban_manage">
+                                                <a class="o_kanban_manage_toggle_button o_left" href="#">More                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                    <i class="fa fa-caret-down"/>
+                                                </a>
+                                                <a type="object" name="toggle_favorite" class="o_right">
+                                                    <i t-attf-class="oe_inline fa o_dashboard_star #{record.is_favorite.raw_value ? 'fa-star' : 'fa-star-o'}" title="Add/remove from favorite"/>
+                                                </a>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="o_project_kanban_boxes">
+                                        <div t-if="record.doc_count.raw_value" class="o_project_kanban_box">
+                                            <a name="attachment_tree_view" type="object">
+                                                <span class="o_value">
+                                                    <t t-esc="record.doc_count.value"/>
+                                                </span>
+                                                <span class="o_label">Documents</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </templates>
+                    </kanban>
+                </xpath>
+            </field>
+        </record>
+        <record id="project.menu_project_management" model="ir.ui.menu">
+            <field name="sequence">5</field>
+        </record>
+        <menuitem action="project.open_view_project_all_config" sequence="1" parent="project.menu_main_pm" name="Projects"/>
+        <record model="ir.actions.act_window.view" id="act_project_tree_view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="rd_tool.inherited_kanban_form"/>
+            <field name="act_window_id" ref="project.open_view_project_all_config"/>
+            <field name="target">current</field>
+        </record>
+    </data>
+</odoo>

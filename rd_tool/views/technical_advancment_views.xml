@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="technical_advancement_form" model="ir.ui.view">
+            <field name="name">technical advance form</field>
+            <field name="model">project.technical.advancement</field>
+            <field name="arch" type="xml">
+                <form string="Details">
+                    <sheet>
+                        <group>
+                            <field name="number"/>
+                            <field name="name"/>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="status"/>
+                            </page>
+                            <page string="Remark">
+                                <field name="remark"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Tree view-->
+        <record id="technical_advancement_tree" model="ir.ui.view">
+            <field name="name">technical advance tree</field>
+            <field name="model">project.technical.advancement</field>
+            <field name="arch" type="xml">
+                <tree string="technical List" create="true" edit="false">
+                    <field name="number"/>
+                    <field name="name"/>
+                    <field name="status"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+        <record id="technical_advancement_kanban" model="ir.ui.view">
+            <field name="name">technical.details.kanban</field>
+            <field name="model">project.technical.advancement</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="number"/>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_technical_advancement" model="ir.actions.act_window">
+            <field name="name">Technical Advancements</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.technical.advancement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+    </data>
+</odoo>
